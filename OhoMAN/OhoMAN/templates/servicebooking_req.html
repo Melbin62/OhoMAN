@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | OhoMAN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-muted: rgba(30, 41, 59, 0.7);
+            --primary-dark: #0f172a;
+            --bg-light: #f1f5f9;
+            --text-muted: #64748b;
+            --accent-teal: #3fbbc0;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: var(--bg-light);
+            display: flex;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-dark);
+            height: 100vh;
+            position: fixed;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-brand {
+            padding: 0 25px 35px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-brand i { color: var(--accent-teal); }
+
+        .nav-menu { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        .nav-item { padding: 4px 15px; }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover { background: var(--primary-muted); color: white; }
+        .nav-link.active { background: var(--primary-muted); color: white; box-shadow: inset 4px 0 0 var(--accent-teal); }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 40px;
+        }
+
+        .data-section {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+            vertical-align: middle;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pending { background: #fff7ed; color: #c2410c; }
+
+        /* --- ACTION BUTTONS ALIGNMENT --- */
+        .action-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .btn-action {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 0;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn-action:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        .btn-accept { color: var(--success-green); }
+        .btn-reject { color: var(--danger-red); }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i class="bi bi-gear-wide-connected"></i> OhoMAN
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/" class="nav-link">
+                    <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/servicebooking_req/" class="nav-link active">
+                    <i class="bi bi-clipboard-data"></i> Booking Request
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/confirmed_booking/" class="nav-link">
+                    <i class="bi bi-patch-check-fill"></i> Confirmed Booking
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-person-badge"></i> Profile
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-item" style="margin-top: auto; padding-bottom: 25px;">
+            <a href="/logout/" class="nav-link" style="color: #fda4af;">
+                <i class="bi bi-power"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section class="data-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-size: 1.2rem; color: var(--primary-dark); margin: 0;">Pending Verification</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer Details</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Schedule</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b in bookings %}
+                    <tr>
+                        <td style="font-weight: 600;">
+                            {{ b.customer.name }}<br>
+                            <small style="color: var(--text-muted); font-weight: 400;">{{ b.customer.email }}</small>
+                        </td>
+
+                        <td>{{ b.customer.address }}</td>
+                        <td>{{ b.customer.phno }}</td>
+
+                        <td>
+                            <div style="font-weight: 600;">{{ b.date }}</div>
+                            <small style="color: var(--text-muted);">{{ b.time }}</small>
+                        </td>
+
+                        <td>{{ b.msg|truncatechars:15|default:"-" }}</td>
+
+                        <td><span class="badge badge-pending">{{ b.status|title }}</span></td>
+
+                        <td>
+                            <div class="action-group">
+                                <form method="POST" action="/approve_booking/" style="margin: 0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="customer_id" value="{{ b.customer.id }}">
+                                    <input type="hidden" name="booking_id" value="{{ b.id }}">
+                                    <button type="submit" class="btn-action btn-accept">
+                                        <i class="bi bi-check-circle"></i> Accept
+                                    </button>
+                                </form>
+
+                                <form method="POST" action="/reject_booking/" style="margin: 0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="customer_id" value="{{ b.customer.id }}">
+                                    <input type="hidden" name="booking_id" value="{{ b.id }}">
+                                    <button type="submit" class="btn-action btn-reject">
+                                        <i class="bi bi-x-circle"></i> Reject
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 60px; color: var(--text-muted);">
+                            <i class="bi bi-inbox" style="font-size: 2rem; display: block; margin-bottom: 10px; opacity: 0.5;"></i>
+                            No pending service requests found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Your Booking | ServicePro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-dark: rgb(15, 23, 42);
+            --primary-muted: rgba(15, 23, 42, 0.6);
+            --accent-blue: #3b82f6;
+            --bg-gray: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: var(--bg-gray);
+            color: #1e293b;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--primary-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        h2 { margin-top: 0; font-size: 1.5rem; color: var(--primary-dark); }
+        .section-label { font-size: 0.85rem; font-weight: 700; color: var(--primary-muted); text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        /* --- Provider Info --- */
+        .provider-profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-gray);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-box { margin-bottom: 20px; }
+        .info-box p { margin: 5px 0; font-weight: 500; }
+
+        /* --- Pricing Table --- */
+        .price-summary {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 1.25rem;
+            font-weight: 700;
+            opacity: 1;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            background: #2563eb;
+        }
+
+        .secure-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="javascript:history.back()" class="back-link">
+        <i class="bi bi-arrow-left"></i> Back to search
+    </a>
+</nav>
+
+<main class="container">
+    <div class="card">
+        <h2>Service Details</h2>
+
+        <div class="provider-profile">
+            <div class="avatar">👷</div>
+            <div>
+                <h3 style="margin: 0;">John Smith</h3>
+                <p style="margin: 5px 0; color: var(--primary-muted);">Certified Senior Electrician</p>
+                <span style="color: #f59e0b;"><i class="bi bi-star-fill"></i> 4.9 (124 reviews)</span>
+            </div>
+        </div>
+
+        <div class="details-grid">
+            <div class="info-box">
+                <span class="section-label">Service Type</span>
+                <p>Electrical Maintenance & Repair</p>
+            </div>
+            <div class="info-box">
+                <span class="section-label">Location</span>
+                <p>789 Brooklyn Heights, NY</p>
+            </div>
+            <div class="info-box">
+                <span class="section-label">Date</span>
+                <p>Monday, Oct 25, 2023</p>
+            </div>
+            <div class="info-box">
+                <span class="section-label">Preferred Time</span>
+                <p>10:00 AM - 12:00 PM</p>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 10px;">
+            <span class="section-label">Work Description</span>
+            <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">
+                Full inspection of home circuit breakers and fixing flickering lights in the kitchen area.
+                Standard safety certification included.
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <div class="card price-summary">
+            <span class="section-label" style="color: rgba(255,255,255,0.6)">Payment Summary</span>
+
+            <div class="price-row">
+                <span>Service Fee (1st Hour)</span>
+                <span>$65.00</span>
+            </div>
+            <div class="price-row">
+                <span>Inspection Fee</span>
+                <span>$20.00</span>
+            </div>
+            <div class="price-row">
+                <span>Platform Fee</span>
+                <span>$5.00</span>
+            </div>
+            <div class="price-row">
+                <span>Tax (GST/VAT)</span>
+                <span>$8.20</span>
+            </div>
+
+            <div class="total-row">
+                <span>Total</span>
+                <span>$98.20</span>
+            </div>
+
+            <button class="confirm-btn" onclick="confirmBooking()">
+                Confirm Booking
+            </button>
+
+            <div class="secure-note">
+                <i class="bi bi-shield-check"></i> Secure SSL Encrypted Payment
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    function confirmBooking() {
+        // Change button state
+        const btn = document.querySelector('.confirm-btn');
+        btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Processing...';
+        btn.style.opacity = '0.7';
+        btn.disabled = true;
+
+        // Mock success redirect
+        setTimeout(() => {
+            alert("Booking Confirmed Successfully! You will receive a notification shortly.");
+            window.location.href = "booking_status.html"; // Redirect to status page
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>

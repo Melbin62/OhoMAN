@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OhoMAN | Secure Payment</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <style>
+    body {
+      background-color: #f4f7f6;
+      font-family: "Inter", sans-serif;
+    }
+
+    .payment-card {
+      max-width: 550px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 45px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    }
+
+    .line-input {
+      border: none;
+      border-bottom: 1px solid #e0e6ed;
+      border-radius: 0;
+      padding: 10px 0px;
+      background: transparent;
+      width: 100%;
+      outline: none;
+      margin-bottom: 22px;
+      font-weight: 600;
+      color: #2c4964;
+      transition: border-color 0.3s;
+    }
+
+    .line-input:focus {
+      border-bottom: 2px solid #3fbbc0;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* OhoMAN Styled Note Box */
+    .payment-note {
+      background-color: #f0f9f9;
+      border-left: 4px solid #3fbbc0;
+      padding: 18px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .payment-note p {
+      margin: 0;
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .btn-pay {
+      background-color: #3fbbc0;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(63, 187, 192, 0.2);
+    }
+
+    .btn-pay:hover {
+      background-color: #2c4964;
+      transform: translateY(-2px);
+    }
+
+    .header-logo {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .header-logo span {
+        color: #3fbbc0;
+        font-weight: 800;
+    }
+
+    .total-section {
+      border-top: 2px dashed #f1f5f9;
+      padding-top: 20px;
+      margin-top: 10px;
+    }
+
+    .currency-tag {
+        font-size: 0.9rem;
+        color: #94a3b8;
+        margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="payment-card">
+    <div class="header-logo">
+        <h2 style="font-weight: 800; color: #2c4964;">Oho<span>MAN</span></h2>
+        <p class="text-muted small">Service Payment Confirmation</p>
+    </div>
+
+    <form action="/confirm_pay/" method="POST">
+        {% csrf_token %}
+
+      <label for="name">Customer Name</label>
+<input type="text" class="line-input" value="{{data.customer.name}}" readonly>
+
+<div class="row">
+  <div class="col-6">
+    <label>Service Expert</label>
+    <input type="text" class="line-input" value="{{data.serviceprov.name}}" readonly>
+  </div>
+    <div class="col-6">
+    <label>Scheduled Date</label>
+    <input type="text" class="line-input" value="{{data.date}}" readonly>
+  </div>
+
+</div>
+
+<div class="row">
+     <div class="col-6">
+    <label>Time</label>
+    <input type="text" class="line-input" value="{{data.time}}" readonly>
+  </div>
+
+  <div class="col-6">
+    <label>Service Fee</label>
+    <input type="text" name="amount" class="line-input" value="{{data.serviceprov.baseprice}}" readonly>
+  </div>
+</div>
+
+<input type="hidden" name="bookingid" value="{{data.id}}">
+
+<div class="total-section d-flex justify-content-between align-items-center">
+  <span class="text-muted fw-bold">Grand Total:</span>
+  <span class="fw-bold text-dark" style="font-size: 1.5rem;">
+      <span class="currency-tag"></span>{{data.serviceprov.baseprice}}
+  </span>
+</div>
+
+      <button type="submit" class="btn-pay">Pay & Confirm Booking</button>
+
+      <div class="text-center mt-4">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" height="20" class="me-3 opacity-50">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" height="15" class="opacity-50">
+      </div>
+
+      <p class="text-center mt-3 mb-0" style="font-size: 11px; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1px;">
+        <i class="bi bi-lock-fill"></i> Secure Payment Gateway
+      </p>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

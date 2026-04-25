@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | ServiceFinder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-muted: rgba(30, 41, 59, 0.7); /* Slightly lighter slate for hover */
+            --primary-dark: #0f172a; /* Deep Slate Navy */
+            --bg-light: #f1f5f9;
+            --text-muted: #64748b;
+            --accent-teal: #3fbbc0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: var(--bg-light);
+            display: flex;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-dark);
+            height: 100vh;
+            position: fixed;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-brand {
+            padding: 0 25px 35px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-brand i {
+            color: var(--accent-teal);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            padding: 4px 15px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-muted);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: var(--primary-muted);
+            color: white;
+            box-shadow: inset 4px 0 0 var(--accent-teal);
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border-bottom: 4px solid var(--accent-teal);
+        }
+
+        .stat-card h3 { margin: 0; font-size: 2rem; color: var(--primary-dark); }
+        .stat-card p { margin: 5px 0 0; color: var(--text-muted); font-size: 0.95rem; font-weight: 500; }
+
+        .data-section {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pending { background: #fff7ed; color: #c2410c; }
+
+        .btn-verify {
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-verify:hover { background: var(--accent-teal); }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i class="bi bi-gear-wide-connected"></i> OhoMAN
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/" class="nav-link active ">
+                    <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                </a>
+            </li>
+             <li class="nav-item">
+                <a href="/servicebooking_req/" class="nav-link ">
+                    <i class="bi bi-clipboard-data"></i> Booking Request
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/confirmed_booking/" class="nav-link">
+                    <i class="bi bi-patch-check-fill"></i> Confirmed Booking
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-person-badge"></i> Profile
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-item" style="margin-top: auto; padding-bottom: 25px;">
+            <a href="/logout/" class="nav-link" style="color: #fda4af;">
+                <i class="bi bi-power"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <div>
+                <h1 style="margin: 0; font-size: 1.8rem; color: var(--primary-dark);">Service Provider Center</h1>
+                <p style="color: var(--text-muted); margin: 5px 0 0;">Overview of current ecosystem operations.</p>
+            </div>
+
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>{{data2}}</h3>
+                <p>New Requests</p>
+            </div>
+            <div class="stat-card">
+                <h3>{{data1}}</h3>
+                <p>Total Confirmed</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

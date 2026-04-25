@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Services | OhoMAN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-navy: #0f172a;
+            --accent-teal: #3fbbc0;
+            --light-bg: #f8fafc;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --amber: #f59e0b;
+            --danger-red: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: var(--light-bg);
+            color: var(--text-main);
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: var(--white);
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-navy); text-decoration: none; }
+        .logo span { color: var(--accent-teal); }
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        .logout-link { color: var(--danger-red) !important; }
+
+        /* --- Balanced "Medium" Header with Grid Merged --- */
+        .search-container {
+            background: var(--primary-navy);
+            padding: 50px 5% 150px 5%; /* Increased bottom padding to accommodate cards */
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: visible; /* Important for merging */
+        }
+
+        .search-container h1 {
+            font-size: 2.2rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .search-container p {
+            margin: 0 0 30px 0;
+            font-size: 1.05rem;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .search-card {
+            background: rgba(255, 255, 255, 0.1); /* Glass effect */
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 16px;
+            display: flex;
+            gap: 12px;
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-card select {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            background: white;
+            color: var(--text-main);
+        }
+
+        .btn-search {
+            background: var(--accent-teal);
+            color: white;
+            border: none;
+            padding: 0 35px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-search:hover {
+            background: #34a8ad;
+            transform: scale(1.02);
+        }
+
+        /* --- Grid & Professional Cards Merged into Blue --- */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 0 5% 60px 5%; /* Top padding removed, bottom padding kept */
+            margin-top: -100px; /* Pull grid up into the blue background */
+            position: relative; /* Ensure it stays above blue but inside the flow */
+            z-index: 10;
+        }
+
+        .provider-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Increased shadow for lift */
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #f1f5f9;
+        }
+
+        .provider-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: #fff7ed;
+            color: var(--amber);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #ffedd5;
+        }
+
+        .provider-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 6px;
+        }
+
+        .dept-tag {
+            display: inline-block;
+            background: #f0fdfa;
+            color: var(--accent-teal);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .details-box {
+            margin: 18px 0;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-teal);
+        }
+
+        .price-tag {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            display: block;
+        }
+
+        .btn-book {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            background: var(--primary-navy);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        .btn-book:hover { background: var(--accent-teal); }
+
+        @media (max-width: 768px) {
+            .search-card { flex-direction: column; }
+            .search-container h1 { font-size: 1.8rem; }
+            .search-container { padding-bottom: 180px; } /* More space on mobile */
+            .results-grid { margin-top: -120px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">Oho<span>MAN</span></a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/service_booking/">Book Service</a>
+        <a href="/booking_status/">Booking Status</a>
+        <a href="/logout/" class="logout-link"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+</nav>
+
+<header class="search-container">
+    <h1>Find Your Professional Expert</h1>
+    <p>Premium verified experts for your home and business needs</p>
+
+    <form method="POST" action="/service_booking/" class="search-card">
+        {% csrf_token %}
+        <select name="location">
+            <option value="">Select Location</option>
+            {% for loc in data1 %}
+                <option value="{{ loc.location }}">{{ loc.location }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="servicename">
+            <option value="">Select Service</option>
+            {% for service in data2 %}
+                <option value="{{ service.name }}">{{ service.name }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="btn-search">Search Now</button>
+    </form>
+</header>
+
+<main class="results-grid">
+    {% for i in results %}
+    <div class="provider-card">
+        <div class="rating-badge">
+            <i class="bi bi-star-fill"></i>
+            {% if i.avg_rating %}
+                {{ i.avg_rating|floatformat:1 }}
+            {% else %}
+                0.0
+            {% endif %}
+        </div>
+
+        <div class="dept-tag">{{ i.service.name }}</div>
+        <div class="provider-name">{{ i.name }}</div>
+
+        <div class="info-row">
+            <i class="bi bi-geo-alt"></i> {{ i.location }}
+        </div>
+        <div class="info-row">
+            <i class="bi bi-telephone"></i> {{ i.phno }}
+        </div>
+
+        <form action="/booking_form/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ i.id }}">
+            <button type="submit" class="btn-book">Book Now</button>
+        </form>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 60px; color: var(--white); opacity: 0.8;"> <i class="bi bi-search" style="font-size: 3rem; opacity: 0.5;"></i>
+        <p style="margin-top: 15px; font-size: 1.1rem;">No experts found matching your criteria.</p>
+    </div>
+    {% endfor %}
+</main>
+
+</body>
+</html>

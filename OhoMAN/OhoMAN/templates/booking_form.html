@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking | OhoMAN</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --banner-navy: #2c4964;
+            --clinic-teal: #3fbbc0;
+            --bg-gray: #f4f7f6;
+            --border-soft: #e0e6ed;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Top Banner */
+        .header-banner {
+            background-color: var(--banner-navy);
+            width: 100%;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom-left-radius: 60px;
+            border-bottom-right-radius: 60px;
+            position: relative;
+        }
+
+        .header-banner h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 50px;
+        }
+
+        /* Centered Card Layout */
+        .booking-container {
+            width: 95%;
+            max-width: 600px;
+            margin-top: -70px;
+            z-index: 10;
+            padding-bottom: 50px;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 40px;
+            border-radius: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        /* --- ENLARGED SERVICE SUMMARY --- */
+        .service-summary {
+            background: #ffffff;
+            border: 2px solid #f0f4f8;
+            border-left: 6px solid var(--clinic-teal); /* Added accent border */
+            border-radius: 24px;
+            padding: 30px; /* Increased padding */
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .service-info-left {
+            flex: 1;
+        }
+
+        .service-label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--clinic-teal);
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .category-title {
+            font-weight: 800;
+            color: var(--banner-navy);
+            font-size: 24px; /* Larger Title */
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-item strong {
+            color: var(--banner-navy);
+        }
+
+        .service-price-right {
+            text-align: right;
+            padding-left: 20px;
+            border-left: 1px solid var(--border-soft);
+        }
+
+        .price-tag {
+            font-size: 32px; /* Much larger price */
+            font-weight: 900;
+            color: var(--clinic-teal);
+            display: block;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .row-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .row-group .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--banner-navy);
+            margin-bottom: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid var(--border-soft);
+            border-radius: 14px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background-color: #fdfdfd;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--clinic-teal);
+            box-shadow: 0 0 0 5px rgba(63, 187, 192, 0.1);
+            background-color: #fff;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .submit-btn {
+            background-color: var(--clinic-teal);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--banner-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(44, 73, 100, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .row-group { flex-direction: column; gap: 0; }
+            .booking-card { padding: 30px 20px; }
+            .service-summary { flex-direction: column; text-align: center; gap: 20px; }
+            .service-price-right { border-left: none; border-top: 1px solid var(--border-soft); padding: 20px 0 0; width: 100%; text-align: center; }
+            .detail-item { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-banner">
+        <h1>Confirm Your Booking</h1>
+    </header>
+
+    <main class="booking-container">
+        <div class="booking-card">
+
+            {% for i in data %}
+            <div class="service-summary">
+                <div class="service-info-left">
+                    <span class="service-label">Expert Category</span>
+                    <span class="category-title">{{ i.department }}</span>
+
+                    <div class="detail-item">
+                        <i class="bi bi-person-badge"></i> Professional: <strong>{{ i.name }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <i class="bi bi-envelope-at"></i> Email: <strong>{{ i.email }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <i class="bi bi-geo-alt"></i> Location: <strong>{{ i.location }}</strong>
+                    </div>
+                    <div class="detail-item" style="margin-top: 12px; font-style: italic;">
+                        <i class="bi bi-info-circle"></i> {{ i.servicedetails }}
+                    </div>
+                </div>
+
+                <div class="service-price-right">
+                    <span class="service-label" style="color: var(--banner-navy)">Starting From</span>
+                    <span class="price-tag">₹{{ i.baseprice }}</span>
+                </div>
+            </div>
+            {% endfor %}
+
+            <form action="/booking_req/" method="POST">
+                {% csrf_token %}
+
+                <div class="row-group">
+                    <div class="form-group">
+                        <label><i class="bi bi-calendar-week"></i> Select Date</label>
+                        <input type="date" name="date" id="booking_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="bi bi-alarm"></i> Preferred Time</label>
+                        <select name="time" required>
+                            <option value="09:00 AM - 12:00 PM">Morning (09 AM - 12 PM)</option>
+                            <option value="12:00 PM - 04:00 PM">Afternoon (12 PM - 04 PM)</option>
+                            <option value="04:00 PM - 08:00 PM">Evening (04 PM - 08 PM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="bi bi-pencil-square"></i> Additional Instructions</label>
+                    <textarea name="msg" placeholder="Share any specific details or entry instructions..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Confirm & Book Now <i class="bi bi-chevron-right"></i>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Prevent past dates and set default to today
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('booking_date');
+        dateInput.setAttribute('min', today);
+        dateInput.value = today;
+    </script>
+
+</body>
+</html>
