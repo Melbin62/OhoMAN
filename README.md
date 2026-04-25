@@ -15,9 +15,9 @@ and book services, while service providers can manage their offerings.
 - HTML, CSS, JavaScript
 - SQLite Database
 5. Installation Steps:
-1. Clone the repository
-2. Navigate to the project folder
-3. Create virtual environment:
+- Clone the repository
+- Navigate to the project folder
+- Create virtual environment:
 python -m venv venv
 4. Activate environment:
 Windows: venv\Scripts\activate
